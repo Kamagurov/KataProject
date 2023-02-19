@@ -45,23 +45,22 @@ public class Main {
             System.out.println(str1 + " " + operation  + " " + str2 + " = " + resultRom);
         }
 
-        num1 = parse(str1);
-        num2 = parse(str2);
-        if (num1 == 0) {
-            result = 0;
-        } else {
-            result = toCalc(num1, num2, operation);
-            System.out.println(str1 + " " + operation + " " + str2 + " = " + result);
+        try {
+            num1 = parse(str1);
+            num2 = parse(str2);
+            if (num1 == 0) {
+                result = 0;
+            } else {
+                result = toCalc(num1, num2, operation);
+                System.out.println(str1 + " " + operation + " " + str2 + " = " + result);
+            }
+        }catch (Exception e) {
         }
     }
 
     private static int parse(String str) {
         int dig = 0;
-        try {
-            dig = Integer.parseInt(str);
-        } catch (Exception e) {
-
-        }
+        dig = Integer.parseInt(str);
         if (dig > 10) {
             System.out.println("Используйте цифры от 1 до 10 или от I до X (рим. цифры) и логические выражения '+', '-', '*', '/'");
             dig = 0;
