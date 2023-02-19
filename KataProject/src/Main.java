@@ -56,7 +56,12 @@ public class Main {
     }
 
     private static int parse(String str) {
-        int dig = Integer.parseInt(str);
+        int dig = 0;
+        try {
+            dig = Integer.parseInt(str);
+        } catch (Exception e) {
+
+        }
         if (dig > 10) {
             System.out.println("Используйте цифры от 1 до 10 или от I до X (рим. цифры) и логические выражения '+', '-', '*', '/'");
             dig = 0;
