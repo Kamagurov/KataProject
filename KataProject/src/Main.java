@@ -8,6 +8,7 @@ public class Main {
     static char operation;
     static char[] operations = {'+', '-', '*', '/'};
     static int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Используйте цифры от 1 до 10 или от I до X (рим. цифры) и логические выражения '+', '-', '*', '/'."
@@ -26,6 +27,9 @@ public class Main {
 
         String str_operation = "\\" + operation;
         String[] strings = str.split(str_operation);
+        if (strings.length > 2) {
+           throw new NumberFormatException("Неверно введенные данные");
+        }
         String str1 = " ";
         String str2 = " ";
         try {
@@ -35,6 +39,7 @@ public class Main {
             throw new ArrayIndexOutOfBoundsException("Вы ввели неправильное выражение. Правильное одно из " + Arrays.toString(operations));
         }
 
+
         num1 = romanToArab(str1);
         num2 = romanToArab(str2);
         if (num1 < 1 || num2 < 1) {
@@ -42,10 +47,10 @@ public class Main {
         } else {
             result = toCalc(num1, num2, operation);
             String resultRom = arabicToRoman(result);
-            System.out.println(str1 + " " + operation  + " " + str2 + " = " + resultRom);
+            System.out.println(str1 + " " + operation + " " + str2 + " = " + resultRom);
         }
 
-        try {
+        if (result == 0) {
             num1 = parse(str1);
             num2 = parse(str2);
             if (num1 == 0) {
@@ -54,16 +59,18 @@ public class Main {
                 result = toCalc(num1, num2, operation);
                 System.out.println(str1 + " " + operation + " " + str2 + " = " + result);
             }
-        }catch (Exception e) {
         }
     }
 
     private static int parse(String str) {
         int dig = 0;
-        dig = Integer.parseInt(str);
+        try {
+            dig = Integer.parseInt(str);
+        } catch (Exception e) {
+            throw new NumberFormatException("Неверно введенные данные");
+        }
         if (dig > 10) {
-            System.out.println("Используйте цифры от 1 до 10 или от I до X (рим. цифры) и логические выражения '+', '-', '*', '/'");
-            dig = 0;
+            throw new NumberFormatException("Неверно введенные данные");
         }
         return dig;
     }
